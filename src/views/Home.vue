@@ -43,8 +43,7 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   width: 100%;
   height: 100%;
   align-items: center;
@@ -96,10 +95,7 @@ input:focus ~ label, input:valid ~ label 		{
   position: relative;
 
   display: block;
-  margin: 30px auto;
-  padding: 0;
-
-  overflow: hidden;
+  margin: 30px;
 
   border-width: 0;
   outline: none;
@@ -109,7 +105,6 @@ input:focus ~ label, input:valid ~ label 		{
   background-color: #ffcc00;
   color: #ffffff;
   font-size:50px;
-  font-weight: "bold";
   
   transition: background-color .3s;
 }
