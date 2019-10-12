@@ -1,13 +1,13 @@
 <template>
   <div class="game">
     <div class="score-dashboard">
-      <div class="score-dashboard__score">123,45</div>
+      <div class="score-dashboard__score">{{ score }}</div>
       <div class="score-dashboard__user">dino-dan</div>
     </div>
 
     <div class="current-location">
       <div class="current-location__lead">You're currently in</div>
-      <div class="current-location__location">Barcelona, Spain</div>
+      <div class="current-location__location">{{ currentCountry }}</div>
     </div>
     <CharacterIcon state="sprint" color="blue" />
     <div class="lead">Where to next?</div>
@@ -38,12 +38,17 @@ export default {
       console.log('Client acknowolges that lobby is full');
       console.log(data);
     },
+    client_handle_launch_game_event(data) {
+      console.log(data.gem_location);
+    },
   },
   components: {
     CharacterIcon,
   },
   data() {
     return {
+      score: 0,
+      currentCountry: 'Barcelona, Spain',
       isLobbyReady: false, // until changed to true
       travelItems: [
         {

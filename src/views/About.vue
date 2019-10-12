@@ -2,11 +2,23 @@
   <div class="about">
     <h1>This is the simple implementation of using socket.io with vuejs</h1>
     <button @click="travel('barcelona')">Travel now</button>
+    {{ flightNumber }}
+    {{ userName }}
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      flightNumber: '',
+      userName: '',
+    };
+  },
+  created() {
+    this.flightNumber = this.$route.params.flightNumber;
+    this.userName = this.$route.params.userName;
+  },
   name: 'about',
   /**
    * If you want to listen socket events from component side, you need to add

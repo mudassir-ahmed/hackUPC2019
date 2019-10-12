@@ -21,10 +21,13 @@ const io = socket(server);
 const players = {};
 
 // Color constants for teams
-const TEAMS = ['red', 'blue'];
+const TEAMS = ['RED', 'BLUE'];
 
 // Max players
 const MAX_PLAYERS = 2;
+
+// Country with gem
+const GEM_LOCATION = 'Belgium';
 
 // Current player team assignment index... will always be 0 or 1
 // which can be mapped to the two teams we have.
@@ -44,8 +47,11 @@ io.on('connection', (socket) => {
   }
 
   if (Object.keys(players).length === MAX_PLAYERS) {
-    io.sockets.emit('client_handle_full_lobby',
-      'Server said that game should begin shortly!');
+    const initData = {
+      gem_location: GEM_LOCATION,
+      players,
+    };
+    io.sockets.emit('client_handle_full_lobby', initData);
   }
 
   // Some debugging

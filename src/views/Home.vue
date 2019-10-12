@@ -1,20 +1,22 @@
 <template>
   <div class="home">
-    <img class="logo" src="./logo.png">
-    <div class="group">      
-      <input type="text" required>
+    <img class="logo" src="./logo.png" />
+    <div class="group">
+      <input v-model="flightNumber" type="text" required />
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Flight Number</label>
     </div>
 
-    <div class="group">      
-      <input type="text" required>
+    <div class="group">
+      <input v-model="userName" type="text" required />
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Insert a Username</label>
     </div>
-    <button class="btn" type="button" @click="handleClick()"><span>PLAY</span></button>
+    <button class="btn" type="button" @click="handleClick()">
+      <span>PLAY</span>
+    </button>
   </div>
 </template>
 
@@ -24,7 +26,8 @@
 export default {
   data() {
     return {
-      userid: 'not set',
+      flightNumber: 'not set',
+      userName: 'not set',
     };
   },
   name: 'home',
@@ -32,11 +35,11 @@ export default {
   methods: {
     handleClick() {
       console.log('okay clicked');
-      this.$router.push({ name: 'about', params: { maxUsers: 4 } });
+      this.$router.push({
+        name: 'about',
+        params: { flightNumber: this.flightNumber, userName: this.userName },
+      });
     },
-  },
-  created() {
-    this.$socket.emit('initialJoin', { userid });
   },
 };
 </script>
@@ -52,44 +55,47 @@ export default {
 }
 
 .logo {
-  bottom:20px;
-  transform:scale(0.75);
+  bottom: 20px;
+  transform: scale(0.75);
 }
 
-.group 			  { 
-  position:relative; 
-  top:30px;
-  margin-bottom:45px; 
+.group {
+  position: relative;
+  top: 30px;
+  margin-bottom: 45px;
 }
-input 				{
-  font-size:18px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  width:300px;
-  border:none;
-  border-bottom:1px solid #757575;
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid #757575;
 }
-input:focus 		{ outline:none; }
+input:focus {
+  outline: none;
+}
 
 /* LABEL ======================================= */
-label 				 {
-  color:#999; 
-  font-size:18px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
+label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
 }
 
 /* active state */
-input:focus ~ label, input:valid ~ label 		{
-  top:-20px;
-  font-size:14px;
-  color:#5264AE;
+input:focus ~ label,
+input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+  color: #5264ae;
 }
 
 .btn {
@@ -104,17 +110,18 @@ input:focus ~ label, input:valid ~ label 		{
   border-width: 0;
   outline: none;
   border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
   background-color: #ffcc00;
   color: #ffffff;
-  font-size:50px;
+  font-size: 50px;
   font-weight: "bold";
-  
-  transition: background-color .3s;
+
+  transition: background-color 0.3s;
 }
 
-.btn:hover, .btn:focus {
+.btn:hover,
+.btn:focus {
   background-color: #ffae00;
 }
 
@@ -129,19 +136,19 @@ input:focus ~ label, input:valid ~ label 		{
 
 .btn:before {
   content: "";
-  
+
   position: absolute;
   top: 50%;
   left: 50%;
-  
+
   display: block;
   width: 0;
   padding-top: 0;
-    
+
   border-radius: 100%;
-  
-  background-color: rgba(236, 240, 241, .3);
-  
+
+  background-color: rgba(236, 240, 241, 0.3);
+
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -152,7 +159,7 @@ input:focus ~ label, input:valid ~ label 		{
 .btn:active:before {
   width: 120%;
   padding-top: 120%;
-  
-  transition: width .2s ease-out, padding-top .2s ease-out;
+
+  transition: width 0.2s ease-out, padding-top 0.2s ease-out;
 }
 </style>
