@@ -14,7 +14,7 @@ export default {
       type: String,
       required: true,
       validator(value) {
-        return ['idle', 'run', 'kick', 'hurt', 'sprint'].includes(value);
+        return ['idle', 'run', 'kick', 'hurt', 'sprint', 'still'].includes(value);
       },
     },
     color: {
@@ -52,6 +52,10 @@ export default {
 
 .character-icon--sprint {
   animation: sprint 0.8s steps(7) infinite;
+}
+
+.character-icon--still {
+  background-position: 0px;
 }
 
 @keyframes idle {
