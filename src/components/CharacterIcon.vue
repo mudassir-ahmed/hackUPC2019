@@ -4,10 +4,6 @@
       :class="`character-icon character-icon--${state}`"
       :style="`background-image: url('${require(`./dino/sheets/${color}.png`)}');`"
     ></div>
-    <div
-      class="character-icon character-icon--cheer"
-      style="`background-image: url('${require(`./dino/sheets/red.png)}')"
-    ></div>
   </div>
 </template>
 
