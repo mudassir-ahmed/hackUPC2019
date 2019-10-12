@@ -35,6 +35,7 @@ export default {
   methods: {
     handleClick() {
       console.log('okay clicked');
+      this.$socket.emit('client_create_player', { username: this.userName });
       this.$router.push({
         name: 'loading',
         params: { flightNumber: this.flightNumber, userName: this.userName },

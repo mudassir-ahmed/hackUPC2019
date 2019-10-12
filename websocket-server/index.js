@@ -39,26 +39,29 @@ function teamToUse() {
 
 io.on('connection', (socket) => {
   // Create the player
+  socket.on('client_create_player', (data) => {
+    if (Object.keys(players).length == MAX_PLAYERS) { // how we limit the players
+      const player = new Player(data.username, 'Spain', teamToUse());
+      players[socket.id] = player;
+      console.log('this ran');
+      console.log(players);
+    }
 
-  if (Object.keys(players).length < MAX_PLAYERS) { // how we limit the players
-    const player = new Player('john', 'Spain', teamToUse());
-    players[socket.id] = player;
-    console.log('this ran');
-  }
+    if (Object.keys(players).length == MAX_PLAYERS) {
+      const initData = {
+        gem_location: GEM_LOCATION,
+        players,
+      };
+      // Some debugging
+      console.log();
+      // console.log('made a socket connection', socket.id);
+      console.log(`I am causing the transition ${socket.id}`);
+    }
+  });
 
-  if (Object.keys(players).length === MAX_PLAYERS) {
-    const initData = {
-      gem_location: GEM_LOCATION,
-      players,
-    };
+  socket.on('client_handle_full_lobby', (data) => {
     io.sockets.emit('client_handle_full_lobby', initData);
-  }
-
-  // Some debugging
-  console.log();
-  // console.log('made a socket connection', socket.id);
-  console.log(players);
-  console.log();
+  });
 
 
   // Remove disconnected player from players.

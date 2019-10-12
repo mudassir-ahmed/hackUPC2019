@@ -12,6 +12,7 @@ import CharacterIcon from '@/components/CharacterIcon.vue';
 export default {
   sockets: {
     client_handle_full_lobby(data) {
+      console.log('e');
       this.$router.push({
         name: 'game',
         params: { flightNumber: this.flightNumber, userName: this.userName },
