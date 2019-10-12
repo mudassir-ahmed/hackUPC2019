@@ -4,6 +4,7 @@
       :class="`character-icon character-icon--${state}`"
       :style="`background-image: url('${require(`./dino/sheets/${color}.png`)}');`"
     ></div>
+    <div class="character-icon character-icon--cheer" style="`background-image: url('${require(`./dino/sheets/red.png)}')"></div>
   </div>
 </template>
 
@@ -14,14 +15,14 @@ export default {
       type: String,
       required: true,
       validator(value) {
-        return ['idle', 'run', 'kick', 'hurt', 'sprint', 'still'].includes(value);
+        return ['idle', 'run', 'kick', 'hurt', 'sprint', 'still', 'cheer'].includes(value);
       },
     },
     color: {
       type: String,
       required: true,
       validator(value) {
-        return ['blue', 'red', 'yellow', 'green'].includes(value);
+        return ['blue', 'red', 'yellow', 'green', 'blue_cheer', 'red_cheer', 'ywllow_cheer', 'green_cheer'].includes(value);
       },
     },
   },
@@ -56,6 +57,10 @@ export default {
 
 .character-icon--still {
   background-position: 0px;
+}
+
+.character-icon--cheer {
+  animation: cheer 0.8s steps(6) infinite;
 }
 
 @keyframes idle {
@@ -100,6 +105,15 @@ export default {
   }
   to {
     background-position: 768px;
+  }
+}
+
+@keyframes cheer {
+  from {
+    background-position: 0px;
+  }
+  to {
+    background-position: -576px;
   }
 }
 </style>
