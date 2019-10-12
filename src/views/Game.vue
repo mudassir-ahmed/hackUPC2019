@@ -10,6 +10,8 @@
       <div class="current-location__location">Barcelona, Spain</div>
     </div>
 
+    <CharacterIcon state="idle" color="red" />
+
     <div class="lead">Where to next?</div>
 
     <transition-group name="travel-list" tag="div" class="travel-options">
@@ -27,7 +29,12 @@
 </template>
 
 <script>
+import CharacterIcon from '@/components/CharacterIcon.vue';
+
 export default {
+  components: {
+    CharacterIcon,
+  },
   data() {
     return {
       travelItems: [

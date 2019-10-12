@@ -1,18 +1,37 @@
 <template>
   <div>
-    <div class="character-icon character-icon--idle"></div>
-    <div class="character-icon character-icon--run"></div>
-    <div class="character-icon character-icon--kick"></div>
-    <div class="character-icon character-icon--hurt"></div>
-    <div class="character-icon character-icon--sprint"></div>
+    <div
+      :class="`character-icon character-icon--${state}`"
+      :style="`background-image: url('${require(`./dino/sheets/${color}.png`)}');`"
+    ></div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    state: {
+      type: String,
+      required: true,
+      validator(value) {
+        return ['idle', 'run', 'kick', 'hurt', 'sprint'].includes(value);
+      },
+    },
+    color: {
+      type: String,
+      required: true,
+      validator(value) {
+        return ['blue', 'red', 'yellow', 'green'].includes(value);
+      },
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .character-icon {
   width: 96px;
   height: 96px;
-  background-image: url("./dino/sheets/DinoSprites - mort.png");
 }
 
 .character-icon--idle {
