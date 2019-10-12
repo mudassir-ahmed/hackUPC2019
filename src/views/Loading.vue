@@ -1,6 +1,8 @@
 <template>
   <div class="loading">
     <CharacterIcon state="still" :color="activeColor" />
+
+    <span>Connecting</span>
   </div>
 </template>
 
@@ -8,6 +10,14 @@
 import CharacterIcon from '@/components/CharacterIcon.vue';
 
 export default {
+  sockets: {
+    client_handle_full_lobby(data) {
+      this.$router.push({
+        name: 'game',
+        params: { flightNumber: this.flightNumber, userName: this.userName },
+      });
+    },
+  },
   components: {
     CharacterIcon,
   },
@@ -16,10 +26,14 @@ export default {
       activeColor: 'blue',
       currentColorIndex: 0,
       colors: ['blue', 'red', 'yellow', 'green'],
+      flightNumber: 'not set',
+      userName: 'not set',
     };
   },
   created() {
     this.loop();
+    this.flightNumber = this.$route.params.flightNumber;
+    this.userName = this.$route.params.userName;
   },
   methods: {
     loop() {

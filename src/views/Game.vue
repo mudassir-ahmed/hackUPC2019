@@ -2,7 +2,7 @@
   <div class="game">
     <div class="score-dashboard">
       <div class="score-dashboard__score">{{ score }}</div>
-      <div class="score-dashboard__user">dino-dan</div>
+      <div class="score-dashboard__user">{{ userName }}</div>
     </div>
 
     <div class="current-location">
@@ -24,12 +24,18 @@
       </div>
     </transition-group>
 
-    <div class="loader">{{ isLobbyReady }}</div>
+    <div class="loader" :style="`background-color: ${isLobbyReady ? '#23f12b' : '#f44336'}`"></div>
+
+    <div class="countdown">{{ countdown }}</div>
   </div>
 </template>
 
 <script>
 import CharacterIcon from '@/components/CharacterIcon.vue';
+
+const TIME_LIMIT = 25;
+
+const GEM_LOCATION = 'Barcelona, Spain';
 
 export default {
   sockets: {
@@ -45,10 +51,18 @@ export default {
   components: {
     CharacterIcon,
   },
+  created() {
+    this.decrementCountdown();
+    this.flightNumber = this.$route.params.flightNumber;
+    this.userName = this.$route.params.userName;
+  },
   data() {
     return {
+      flightNumber: '',
+      userName: '',
+      countdown: TIME_LIMIT,
       score: 0,
-      currentCountry: 'Barcelona, Spain',
+      currentCountry: GEM_LOCATION,
       isLobbyReady: false, // until changed to true
       travelItems: [
         {
@@ -67,15 +81,35 @@ export default {
     remove(index) {
       this.travelItems.splice(index, 1);
     },
+    decrementCountdown() {
+      setTimeout(() => {
+        this.countdown = this.countdown - 1;
+        if (this.countdown >= 0) {
+          this.decrementCountdown();
+        } else {
+          // Game lost becuase time ran out.
+          this.$router.push({
+            name: 'winLose',
+            params: { isWinner: false },
+          });
+        }
+      }, 1000);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.countdown {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  opacity: 0.4;
+}
+
 .loader {
   width: 20px;
   height: 20px;
-  border: 2px solid red;
   position: fixed;
   top: 20px;
   right: 20px;

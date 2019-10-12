@@ -36,7 +36,7 @@ export default {
     handleClick() {
       console.log('okay clicked');
       this.$router.push({
-        name: 'about',
+        name: 'loading',
         params: { flightNumber: this.flightNumber, userName: this.userName },
       });
     },
