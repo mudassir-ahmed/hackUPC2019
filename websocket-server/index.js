@@ -15,28 +15,27 @@ app.use(express.static('public'));
 // Socket setup
 const io = socket(server);
 
+const players = {};
+
 io.on('connection', (socket) => {
-  console.log('made a socket connection', socket.id);
+  players[socket.id] = socket.id;
+
+  // Some debugging
+  console.log();
+  // console.log('made a socket connection', socket.id);
+  console.log(players);
+  console.log();
 
 
-  socket.on('test', (data) => {
-    // io.sockets refers to all connected sockets
-    io.sockets.emit('test', `Server received ${data}`);
-
-    // socket.broadcast.emit() emits to all connections except the triggerer
+  // Remove disconnected player from players.
+  socket.on('disconnect', () => {
+    delete players[socket.id];
   });
 
-  socket.on('emit_method', (data) => {
+  socket.on('server_travel_event', (data) => {
     // io.sockets refers to all connected sockets
-    io.sockets.emit('customEmit', `Server received ${data}`);
-
-    // socket.broadcast.emit() emits to all connections except the triggerer
-  });
-
-
-  socket.on('travel', (data) => {
-    // io.sockets refers to all connected sockets
-    io.sockets.emit('travelHandle', `Someone with the id has traveled to ${data.location}`);
+    io.sockets.emit('client_handle_travel_event',
+      `Server said: Someone with the id has traveled to ${data.location}`);
 
     // socket.broadcast.emit() emits to all connections except the triggerer
   });
