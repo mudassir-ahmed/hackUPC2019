@@ -19,10 +19,10 @@ async function countFlights(origin) {
 
 
   axios.get(request, {
-      headers: {
-        'api-key': 'skyscanner-hackupc2019',
-      },
-    })
+    headers: {
+      'api-key': 'skyscanner-hackupc2019',
+    },
+  })
     .then((response) => {
       if (response.data.Quotes) {
         // locations are saved in this variable
@@ -81,15 +81,15 @@ async function countFlights(origin) {
             skyscannerCode_2} "price":${cost_2} } ]}`; */
 
         const destinations = [{
-            location: destination_1.CountryName,
-            skyscannerCode: skyscannerCode_1,
-            price: cost_1,
-          },
-          {
-            location: destination_2.CountryName,
-            skyscannerCode: skyscannerCode_2,
-            price: cost_2,
-          },
+          location: destination_1.CountryName,
+          skyscannerCode: skyscannerCode_1,
+          price: cost_1,
+        },
+        {
+          location: destination_2.CountryName,
+          skyscannerCode: skyscannerCode_2,
+          price: cost_2,
+        },
         ];
 
         console.log(destinations);
