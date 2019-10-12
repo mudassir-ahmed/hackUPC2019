@@ -40,7 +40,7 @@ function teamToUse() {
 io.on('connection', (socket) => {
   // Create the player
   socket.on('client_create_player', (data) => {
-    if (Object.keys(players).length == MAX_PLAYERS) { // how we limit the players
+    if (Object.keys(players).length < MAX_PLAYERS) { // how we limit the players
       const player = new Player(data.username, 'Spain', teamToUse());
       players[socket.id] = player;
       console.log('this ran');
@@ -56,13 +56,9 @@ io.on('connection', (socket) => {
       console.log();
       // console.log('made a socket connection', socket.id);
       console.log(`I am causing the transition ${socket.id}`);
+      io.sockets.emit('client_handle_full_lobby', initData);
     }
   });
-
-  socket.on('client_handle_full_lobby', (data) => {
-    io.sockets.emit('client_handle_full_lobby', initData);
-  });
-
 
   // Remove disconnected player from players.
   socket.on('disconnect', () => {
