@@ -1,17 +1,15 @@
 <template>
   <div class="game">
     <div class="score-dashboard">
-      <div class="score-dashboard__score">100,00</div>
-      <div class="score-dashboard__user">user</div>
+      <div class="score-dashboard__score">123,45</div>
+      <div class="score-dashboard__user">dino-dan</div>
     </div>
 
     <div class="current-location">
       <div class="current-location__lead">You're currently in</div>
       <div class="current-location__location">Barcelona, Spain</div>
     </div>
-
-    <CharacterIcon state="idle" color="red" />
-
+    <CharacterIcon state="sprint" color="blue" />
     <div class="lead">Where to next?</div>
 
     <transition-group name="travel-list" tag="div" class="travel-options">
@@ -102,6 +100,7 @@ export default {
 
   .current-location__location {
     font-size: 25px;
+    font-weight: bold;
   }
 }
 
