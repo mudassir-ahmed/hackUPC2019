@@ -8,7 +8,6 @@ var date = (year + "-" + month + "-" + day);
 
 const getFlights = () => {
   var request = 'https://www.skyscanner.net/g/chiron/api/v1/flights/browse/browsequotes/v1.0/UK/GBP/en-GB/BCN-sky/anywhere/' + date;
-  console.log(request);
   try {
     return axios.get(request, {
       headers: {
@@ -35,7 +34,6 @@ const countFlights = async () => {
 
         //chosen flight for the object
         var objectFlight = flights[random];
-        console.log(objectFlight);
 
         //find destination
         var objectLocationId = objectFlight.OutboundLeg.DestinationId;
@@ -43,8 +41,7 @@ const countFlights = async () => {
         for (var i = 0; i < places.length; i++) {
           if(places[i].PlaceId == objectLocationId){
             var objectLocation = places[i];
-            console.log("The bone is in " + objectLocation.CountryName);
-            console.log(places[i]);
+            console.log("The object is in " + objectLocation.CountryName);
           }
         }
       }
