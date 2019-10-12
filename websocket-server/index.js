@@ -40,7 +40,7 @@ function teamToUse() {
 io.on('connection', (socket) => {
   // Create the player
   socket.on('client_create_player', (data) => {
-    if (Object.keys(players).length == MAX_PLAYERS) { // how we limit the players
+    if (Object.keys(players).length < MAX_PLAYERS) { // how we limit the players
       const player = new Player(data.username, 'Spain', teamToUse());
       players[socket.id] = player;
       console.log('this ran');
