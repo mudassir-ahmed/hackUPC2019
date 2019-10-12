@@ -1,16 +1,16 @@
 const axios = require('axios');
 
-// create the date to run the games, tomorrows date
-const newDate = new Date();
-const day = newDate.getDate() + 1;
-const month = newDate.getMonth() + 1;
-const year = newDate.getFullYear();
-
-// output the date in teh correct format
-const date = (`${year}-${month}-${day}`);
-
 // Data retireved from the API is used in thi section of the code
 async function countFlights(origin) {
+  // create the date to run the games, tomorrows date
+  const newDate = new Date();
+  const day = newDate.getDate() + 1;
+  const month = newDate.getMonth() + 1;
+  const year = newDate.getFullYear();
+
+  // output the date in teh correct format
+  const date = (`${year}-${month}-${day}`);
+
   // creates the name of the location so it can be used to retieve data
   const startingLocation = `${origin}-sky`;
 
@@ -19,10 +19,10 @@ async function countFlights(origin) {
 
 
   axios.get(request, {
-    headers: {
-      'api-key': 'skyscanner-hackupc2019',
-    },
-  })
+      headers: {
+        'api-key': 'skyscanner-hackupc2019',
+      },
+    })
     .then((response) => {
       if (response.data.Quotes) {
         // locations are saved in this variable
@@ -81,15 +81,15 @@ async function countFlights(origin) {
             skyscannerCode_2} "price":${cost_2} } ]}`; */
 
         const destinations = [{
-          location: destination_1.CountryName,
-          skyscannerCode: skyscannerCode_1,
-          price: cost_1,
-        },
-        {
-          location: destination_2.CountryName,
-          skyscannerCode: skyscannerCode_2,
-          price: cost_2,
-        },
+            location: destination_1.CountryName,
+            skyscannerCode: skyscannerCode_1,
+            price: cost_1,
+          },
+          {
+            location: destination_2.CountryName,
+            skyscannerCode: skyscannerCode_2,
+            price: cost_2,
+          },
         ];
 
         console.log(destinations);

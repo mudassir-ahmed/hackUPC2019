@@ -4,7 +4,7 @@ const newDate = new Date();
 const day = newDate.getDate() + 1;
 const month = newDate.getMonth() + 1;
 const year = newDate.getFullYear();
-const date = (`${year }-${month}-${day}`);
+const date = (`${year}-${month}-${day}`);
 
 const getFlights = () => {
   const request = `https://www.skyscanner.net/g/chiron/api/v1/flights/browse/browsequotes/v1.0/UK/GBP/en-GB/BCN-sky/anywhere/${
@@ -42,7 +42,7 @@ const countFlights = async () => {
         for (let i = 0; i < places.length; i++) {
           if (places[i].PlaceId == objectLocationId) {
             const objectLocation = places[i];
-            console.log(`The object is in ${  objectLocation.CountryName}`);
+            console.log(`The object is in ${objectLocation.CountryName}`);
           }
         }
       }
