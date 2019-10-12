@@ -18,6 +18,7 @@ const io = socket(server);
 io.on('connection', (socket) => {
   console.log('made a socket connection', socket.id);
 
+
   socket.on('test', (data) => {
     // io.sockets refers to all connected sockets
     io.sockets.emit('test', `Server received ${data}`);
@@ -28,6 +29,14 @@ io.on('connection', (socket) => {
   socket.on('emit_method', (data) => {
     // io.sockets refers to all connected sockets
     io.sockets.emit('customEmit', `Server received ${data}`);
+
+    // socket.broadcast.emit() emits to all connections except the triggerer
+  });
+
+
+  socket.on('travel', (data) => {
+    // io.sockets refers to all connected sockets
+    io.sockets.emit('travelHandle', `Someone with the id has traveled to ${data.location}`);
 
     // socket.broadcast.emit() emits to all connections except the triggerer
   });

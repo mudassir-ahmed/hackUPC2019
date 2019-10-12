@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    Please enter your flight number
+    <input type="number" name id />
+    <button @click="handleClick()">Okay</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   name: 'home',
-  components: {
-    HelloWorld,
+  components: {},
+  methods: {
+    handleClick() {
+      console.log('okay clicked');
+      this.$router.push({ name: 'about', params: { maxUsers: 4 } });
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+</style>

@@ -10,18 +10,18 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-shadow': 'off',
+    'no-unused-vars': 'warn',
   },
   parserOptions: {
     parser: 'babel-eslint',
   },
-  overrides: [
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-      ],
-      env: {
-        jest: true,
-      },
+  overrides: [{
+    files: [
+      '**/__tests__/*.{j,t}s?(x)',
+    ],
+    env: {
+      jest: true,
     },
-  ],
+  }],
 };
