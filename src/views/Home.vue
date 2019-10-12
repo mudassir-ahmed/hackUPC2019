@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     Please enter your flight number
-    <input type="number" name id />
+    <input v-model="userid" type="text" name id />
+    <span>Your username is {{ userid }}</span>
     <button @click="handleClick()">Okay</button>
   </div>
 </template>
@@ -10,6 +11,11 @@
 // @ is an alias to /src
 
 export default {
+  data() {
+    return {
+      userid: 'not set',
+    };
+  },
   name: 'home',
   components: {},
   methods: {
@@ -17,6 +23,9 @@ export default {
       console.log('okay clicked');
       this.$router.push({ name: 'about', params: { maxUsers: 4 } });
     },
+  },
+  created() {
+    this.$socket.emit('initialJoin', { userid });
   },
 };
 </script>

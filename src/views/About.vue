@@ -1,7 +1,6 @@
 <template>
   <div class="about">
     <h1>This is the simple implementation of using socket.io with vuejs</h1>
-    <button @click="clickButton('hello')">Trigger socket</button>
     <button @click="travel('barcelona')">Travel now</button>
   </div>
 </template>
@@ -18,22 +17,13 @@ export default {
     connect() {
       console.log('socket connected');
     },
-    customEmit(data) {
-      console.log(
-        'this method was fired by the socket server. eg: io.emit("customEmit", data)',
-      );
-    },
-    travelHandle(data) {
-      console.log('this method will be triggered by the websocket server');
+    client_handle_travel_event(data) {
+      console.log(data);
     },
   },
   methods: {
-    clickButton(data) {
-      // $socket is socket.io-client instance
-      this.$socket.emit('emit_method', data);
-    },
     travel(location) {
-      this.$socket.emit('travel', { location });
+      this.$socket.emit('server_travel_event', { location });
     },
   },
 };
