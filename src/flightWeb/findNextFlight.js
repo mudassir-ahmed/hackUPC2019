@@ -17,7 +17,7 @@ var origin = args[0];
 var startingLocation = origin + '-sky';
 
 //this part of the code accesses the api using the api key
-const getFlights = () => {
+const getFlightsFromAPI = () => {
   var request = 'https://www.skyscanner.net/g/chiron/api/v1/flights/browse/browsequotes/v1.0/UK/GBP/en-GB/' + startingLocation + '/anywhere/' + date;
   try {
     return axios.get(request, {
@@ -32,7 +32,7 @@ const getFlights = () => {
 
 //Data retireved from the API is used in thi section of the code
 const countFlights = async () => {
-  const flights = getFlights()
+  const flights = getFlightsFromAPI()
     .then(response => {
       if (response.data.Quotes) {
         //locations are saved in this variable
@@ -74,15 +74,22 @@ const countFlights = async () => {
 
           if(places[i].PlaceId == destinationId_1){
             destination_1 = places[i];
-            //inputs the data into the array
-            outputCountries[destination_1.CountryName] = cost_1;
+            //finds skyscanner code
+            var skyscannerCode_1 = destination_1.SkyscannerCode;
           }
+
           if(places[i].PlaceId == destinationId_2){
             destination_2 = places[i];
-            //inputs the data into the array
-            outputCountries[destination_2.CountryName] = cost_2;
+            //finds skyscanner code
+            var skyscannerCode_2 = destination_2.SkyscannerCode;
+
           }
         }
+
+        var outputCountries = '{ "destinations" : [' +
+                              '{ "location": ' + destination_1.CountryName + ',"skyscannerCode":' + skyscannerCode_1 +' "price":' + cost_1 +' },' +
+                              '{ "location": ' + destination_2.CountryName + ',"skyscannerCode":' + skyscannerCode_2 +' "price":' + cost_2 +' } ]}';
+
         console.log(outputCountries);
       }
     })
