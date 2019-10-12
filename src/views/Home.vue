@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     Please enter your flight number
-    <input type="number" name id />
+    <input type="text" name id />
     <button @click="handleClick()">Okay</button>
   </div>
 </template>
