@@ -23,6 +23,8 @@
         <div class="travel-options__option__price">&euro;{{ travelItem.price }}</div>
       </div>
     </transition-group>
+
+    <div class="loader">{{ isLobbyReady }}</div>
   </div>
 </template>
 
@@ -30,11 +32,19 @@
 import CharacterIcon from '@/components/CharacterIcon.vue';
 
 export default {
+  sockets: {
+    client_handle_full_lobby(data) {
+      this.isLobbyReady = true;
+      console.log('Client acknowolges that lobby is full');
+      console.log(data);
+    },
+  },
   components: {
     CharacterIcon,
   },
   data() {
     return {
+      isLobbyReady: false, // until changed to true
       travelItems: [
         {
           location: 'location',
@@ -57,6 +67,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid red;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+}
+
 .travel-list-item {
   transition: all 3s;
   display: inline-block;

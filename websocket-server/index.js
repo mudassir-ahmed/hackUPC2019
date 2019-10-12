@@ -43,6 +43,11 @@ io.on('connection', (socket) => {
     console.log('this ran');
   }
 
+  if (Object.keys(players).length === MAX_PLAYERS) {
+    io.sockets.emit('client_handle_full_lobby',
+      'Server said that game should begin shortly!');
+  }
+
   // Some debugging
   console.log();
   // console.log('made a socket connection', socket.id);
