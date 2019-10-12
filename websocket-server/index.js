@@ -1,5 +1,8 @@
 const express = require('express');
 const socket = require('socket.io');
+const Player = require('./player.js');
+
+console.log();
 
 // App setup.
 const app = express();
@@ -17,8 +20,28 @@ const io = socket(server);
 
 const players = {};
 
+// Color constants for teams
+const TEAMS = ['red', 'blue'];
+
+// Max players
+const MAX_PLAYERS = 2;
+
+// Current player team assignment index... will always be 0 or 1
+// which can be mapped to the two teams we have.
+function teamToUse() {
+  console.log(Object.keys(players).length);
+  return TEAMS[Object.keys(players).length % TEAMS.length];
+}
+
+
 io.on('connection', (socket) => {
-  players[socket.id] = socket.id;
+  // Create the player
+
+  if (Object.keys(players).length < MAX_PLAYERS) { // how we limit the players
+    const player = new Player('john', 'Spain', teamToUse());
+    players[socket.id] = player;
+    console.log('this ran');
+  }
 
   // Some debugging
   console.log();
