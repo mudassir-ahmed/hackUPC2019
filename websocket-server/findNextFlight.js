@@ -9,31 +9,20 @@ const year = newDate.getFullYear();
 // output the date in teh correct format
 const date = (`${year}-${month}-${day}`);
 
-// reads the input and saves it
-const args = process.argv.slice(2);
-const origin = args[0];
+// Data retireved from the API is used in thi section of the code
+async function countFlights(origin) {
+  // creates the name of the location so it can be used to retieve data
+  const startingLocation = `${origin}-sky`;
 
-// creates the name of the location so it can be used to retieve data
-const startingLocation = `${origin}-sky`;
-
-// this part of the code accesses the api using the api key
-const getFlightsFromAPI = () => {
   const request = `https://www.skyscanner.net/g/chiron/api/v1/flights/browse/browsequotes/v1.0/UK/GBP/en-GB/${
     startingLocation}/anywhere/${date}`;
-  try {
-    return axios.get(request, {
-      headers: {
-        'api-key': 'skyscanner-hackupc2019',
-      },
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
 
-// Data retireved from the API is used in thi section of the code
-const countFlights = async () => {
-  const flights = getFlightsFromAPI()
+
+  axios.get(request, {
+    headers: {
+      'api-key': 'skyscanner-hackupc2019',
+    },
+  })
     .then((response) => {
       if (response.data.Quotes) {
         // locations are saved in this variable
@@ -68,7 +57,7 @@ const countFlights = async () => {
         }
 
         // array which holds the countries and the prices of teh tickets
-        var outputCountries = {};
+        const outputCountries = {};
 
         // loop to find the details of the destination country we are going to
         for (let i = 0; i < places.length; i++) {
@@ -85,18 +74,30 @@ const countFlights = async () => {
           }
         }
 
-        var outputCountries = `${'{ "destinations" : ['
+        /* var outputCountries = `${'{ "destinations" : ['
           + '{ "location": '}${destination_1.CountryName},"skyscannerCode":${
           skyscannerCode_1} "price":${cost_1} },`
           + `{ "location": ${destination_2.CountryName},"skyscannerCode":${
-            skyscannerCode_2} "price":${cost_2} } ]}`;
+            skyscannerCode_2} "price":${cost_2} } ]}`; */
 
-        console.log(outputCountries);
+        const destinations = [{
+          location: destination_1.CountryName,
+          skyscannerCode: skyscannerCode_1,
+          price: cost_1,
+        },
+        {
+          location: destination_2.CountryName,
+          skyscannerCode: skyscannerCode_2,
+          price: cost_2,
+        },
+        ];
+
+        console.log(destinations);
       }
     })
     .catch((error) => {
-      console.log('please check your internet connection');
+      console.log('An error occured.', error);
     });
-};
+}
 
-countFlights();
+countFlights('SSH');
