@@ -42,11 +42,6 @@ const ORIGIN = 'BCN';
 
 export default {
   sockets: {
-    client_handle_full_lobby(data) {
-      this.isLobbyReady = true;
-      console.log('Client acknowolges that lobby is full');
-      console.log(data);
-    },
     client_handle_launch_game_event(data) {
       console.log(data.gem_location);
     },
