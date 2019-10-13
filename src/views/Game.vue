@@ -37,7 +37,7 @@ import CharacterIcon from '@/components/CharacterIcon.vue';
 const TIME_LIMIT = 60;
 
 // Starting game state
-const GEM_LOCATIONS = ["Spain", "United Kingdom", "United States", "China", "United Arab Emirates"];
+const GEM_LOCATIONS = ['Spain', 'United Kingdom', 'United States', 'China', 'United Arab Emirates'];
 const ORIGIN = 'BCN';
 
 export default {
@@ -86,11 +86,11 @@ export default {
       );
       this.budget -= selectedCity.price;
       this.currentCountry = selectedCity.location;
-      if(GEM_LOCATIONS.includes(this.currentCountry)) {
+      if (GEM_LOCATIONS.includes(this.currentCountry)) {
         this.$router.push({
-            name: 'winLose',
-            params: { isWinner: true },
-          });
+          name: 'winLose',
+          params: { isWinner: true },
+        });
       }
       this.updateTravelList(selectedCity.skyscannerCode);
     },

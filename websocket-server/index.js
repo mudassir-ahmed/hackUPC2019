@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
       const initData = {
         gem_location: GEM_LOCATION,
         players,
-        team: teamUsed
+        team: teamUsed,
       };
       // Some debugging
       console.log();
@@ -61,7 +61,6 @@ io.on('connection', (socket) => {
       console.log(`I am causing the transition ${socket.id}`);
       // io.sockets.emit('client_handle_full_lobby', initData);
       setTimeout(() => {
-          
         io.emit('client_handle_full_lobby', initData);
         console.log('pushed events');
       }, 100);
