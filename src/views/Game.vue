@@ -81,7 +81,7 @@ export default {
       userName: '',
       countdown: TIME_LIMIT,
       budget: 10000,
-      currentCountry: '',
+      currentCountry: 'Spain',
       isLobbyReady: false, // until changed to true
       travelItems: [
         {
