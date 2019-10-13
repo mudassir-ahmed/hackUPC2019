@@ -11,7 +11,7 @@
 import CharacterIcon from '@/components/CharacterIcon.vue';
 
 export default {
-  created(){
+  created() {
     console.log(this.$route.params.team);
   },
   name: 'winLose',
