@@ -56,7 +56,11 @@ io.on('connection', (socket) => {
       console.log();
       // console.log('made a socket connection', socket.id);
       console.log(`I am causing the transition ${socket.id}`);
-      io.sockets.emit('client_handle_full_lobby', initData);
+      // io.sockets.emit('client_handle_full_lobby', initData);
+      setTimeout(() => {
+        io.emit('client_handle_full_lobby', initData);
+        console.log('pushed events');
+      }, 100);
     }
   });
 
