@@ -12,7 +12,7 @@
       <input v-model="userName" type="text" required />
       <span class="highlight"></span>
       <span class="bar"></span>
-      <label>Insert a Username</label>
+      <label>Username</label>
     </div>
     <button class="btn" type="button" @click="handleClick()">
       <span>PLAY</span>
@@ -26,8 +26,8 @@
 export default {
   data() {
     return {
-      flightNumber: 'not set',
-      userName: 'not set',
+      flightNumber: '',
+      userName: '',
     };
   },
   name: 'home',
@@ -47,16 +47,18 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  display: grid;
+  display: flex;
   width: 100%;
   height: 100%;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
+  justify-items: center;
 }
 
 .logo {
-  bottom: 20px;
-  transform: scale(0.75);
+  margin: 0 auto 20px auto;
+  max-height: 130px;
 }
 
 .group {
@@ -70,7 +72,7 @@ input {
   display: block;
   width: 300px;
   border: none;
-  border-bottom: 1px solid #757575;
+  border-bottom: 1px solid #efefef;
 }
 input:focus {
   outline: none;
@@ -78,7 +80,7 @@ input:focus {
 
 /* LABEL ======================================= */
 label {
-  color: #999;
+  color: #b5b5b5;
   font-size: 18px;
   font-weight: normal;
   position: absolute;
@@ -95,67 +97,30 @@ input:focus ~ label,
 input:valid ~ label {
   top: -20px;
   font-size: 14px;
-  color: #5264ae;
+  color: #b5b5b5;
 }
-
 .btn {
-  position: relative;
+  &,
+  &:link,
+  &:visited {
+    background-color: #ffcc00;
+    color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    text-align: left;
+    max-width: 250px;
+    margin: 10px auto;
+    width: 100%;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
 
-  display: block;
-  margin: 30px;
-
-  border-width: 0;
-  outline: none;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-
-  background-color: #ffcc00;
-  color: #ffffff;
-  font-size: 50px;
-
-  transition: background-color 0.3s;
-}
-
-.btn:hover,
-.btn:focus {
-  background-color: #ffae00;
-}
-
-.btn > * {
-  position: relative;
-}
-
-.btn span {
-  display: block;
-  padding: 12px 24px;
-}
-
-.btn:before {
-  content: "";
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  display: block;
-  width: 0;
-  padding-top: 0;
-
-  border-radius: 100%;
-
-  background-color: rgba(236, 240, 241, 0.3);
-
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.btn:active:before {
-  width: 120%;
-  padding-top: 120%;
-
-  transition: width 0.2s ease-out, padding-top 0.2s ease-out;
+  &:hover,
+  &:active {
+    background-color: #deb100;
+    transition: 0.2s ease;
+  }
 }
 </style>
