@@ -18,6 +18,7 @@
         v-bind:key="index"
         class="travel-options__option"
         @click="remove(index)"
+        @click.prevent="playSound('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3')"
       >
         <div class="travel-options__option__location">{{ travelItem.location }}</div>
         <div class="travel-options__option__price">&euro;{{ travelItem.price }}</div>
@@ -82,6 +83,12 @@ export default {
     };
   },
   methods: {
+    playSound(sound) {
+      if (sound) {
+        const audio = new Audio(sound);
+        audio.play();
+      }
+    },
     remove(index) {
       const selectedCity = this.travelItems[index];
       // this.travelItems.splice(index, 1);
