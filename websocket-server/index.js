@@ -24,7 +24,7 @@ const players = {};
 const TEAMS = ['RED', 'BLUE'];
 
 // Max players
-const MAX_PLAYERS = 4;
+const MAX_PLAYERS = 2;
 
 // Country with gem
 const GEM_LOCATION = 'Belgium';
