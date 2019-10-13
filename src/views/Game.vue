@@ -106,7 +106,7 @@ export default {
     async updateTravelList(origin) {
       // create the date to run the games, tomorrows date
       const newDate = new Date();
-      const day = newDate.getDate() + 1;
+      const day = newDate.getDate() + 2;
       const month = newDate.getMonth() + 1;
       const year = newDate.getFullYear();
 
