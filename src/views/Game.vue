@@ -34,16 +34,15 @@
 import axios from 'axios';
 import CharacterIcon from '@/components/CharacterIcon.vue';
 
-const TIME_LIMIT = 25;
+const TIME_LIMIT = 60;
 
 // Starting game state
-const GEM_LOCATION = 'Spain';
+const GEM_LOCATIONS = ["Spain", "United Kingdom", "United States", "China", "United Arab Emirates"];
 const ORIGIN = 'BCN';
 
 export default {
   sockets: {
     client_handle_launch_game_event(data) {
-      console.log(data.gem_location);
     },
   },
   components: {
@@ -62,7 +61,7 @@ export default {
       userName: '',
       countdown: TIME_LIMIT,
       budget: 10000,
-      currentCountry: GEM_LOCATION,
+      currentCountry: '',
       isLobbyReady: false, // until changed to true
       travelItems: [
         {
@@ -87,6 +86,12 @@ export default {
       );
       this.budget -= selectedCity.price;
       this.currentCountry = selectedCity.location;
+      if(GEM_LOCATIONS.includes(this.currentCountry)) {
+        this.$router.push({
+            name: 'winLose',
+            params: { isWinner: true },
+          });
+      }
       this.updateTravelList(selectedCity.skyscannerCode);
     },
     decrementCountdown() {
