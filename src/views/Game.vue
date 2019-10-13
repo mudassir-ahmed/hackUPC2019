@@ -31,22 +31,27 @@
 </template>
 
 <script>
-import axios from 'axios';
-import CharacterIcon from '@/components/CharacterIcon.vue';
+import axios from "axios";
+import CharacterIcon from "@/components/CharacterIcon.vue";
 
 const TIME_LIMIT = 60;
 
 // Starting game state
-const GEM_LOCATIONS = ['Spain', 'United Kingdom', 'United States', 'China', 'United Arab Emirates'];
-const ORIGIN = 'BCN';
+const GEM_LOCATIONS = [
+  "Spain",
+  "United Kingdom",
+  "United States",
+  "China",
+  "United Arab Emirates"
+];
+const ORIGIN = "BCN";
 
 export default {
   sockets: {
-    client_handle_launch_game_event(data) {
-    },
+    client_handle_launch_game_event(data) {}
   },
   components: {
-    CharacterIcon,
+    CharacterIcon
   },
   created() {
     this.decrementCountdown();
@@ -57,23 +62,23 @@ export default {
   },
   data() {
     return {
-      flightNumber: '',
-      userName: '',
+      flightNumber: "",
+      userName: "",
       countdown: TIME_LIMIT,
       budget: 10000,
-      currentCountry: '',
+      currentCountry: "",
       isLobbyReady: false, // until changed to true
       travelItems: [
         {
-          location: 'location',
-          price: '100,00',
+          location: "location",
+          price: "100,00"
         },
 
         {
-          location: 'location',
-          price: '260,00',
-        },
-      ],
+          location: "location",
+          price: "260,00"
+        }
+      ]
     };
   },
   methods: {
@@ -81,15 +86,15 @@ export default {
       const selectedCity = this.travelItems[index];
       // this.travelItems.splice(index, 1);
       console.log(
-        'CODE TO USE FOR NEXT SEARCH: ',
-        this.travelItems[index].skyscannerCode,
+        "CODE TO USE FOR NEXT SEARCH: ",
+        this.travelItems[index].skyscannerCode
       );
       this.budget -= selectedCity.price;
       this.currentCountry = selectedCity.location;
       if (GEM_LOCATIONS.includes(this.currentCountry)) {
         this.$router.push({
-          name: 'winLose',
-          params: { isWinner: true },
+          name: "winLose",
+          params: { isWinner: true }
         });
       }
       this.updateTravelList(selectedCity.skyscannerCode);
@@ -97,13 +102,13 @@ export default {
     decrementCountdown() {
       setTimeout(() => {
         this.countdown = this.countdown - 1;
-        if (this.countdown >= 0) {
+        if (this.countdown < 0) {
           this.decrementCountdown();
         } else {
           // Game lost becuase time ran out.
           this.$router.push({
-            name: 'winLose',
-            params: { isWinner: false },
+            name: "winLose",
+            params: { isWinner: false }
           });
         }
       }, 1000);
@@ -126,11 +131,11 @@ export default {
       axios
         .get(request, {
           headers: {
-            'api-key': 'skyscanner-hackupc2019',
-          },
+            "api-key": "skyscanner-hackupc2019"
+          }
         })
-        .then((response) => {
-          console.log('thennnn');
+        .then(response => {
+          console.log("thennnn");
           if (response.data.Quotes) {
             // locations are saved in this variable
             const places = response.data.Places;
@@ -151,7 +156,7 @@ export default {
             let cost_1 = flight_1.MinPrice;
 
             // if courier is Vueling, do not charge
-            if (carrier_1 == '1865') {
+            if (carrier_1 == "1865") {
               cost_1 = 0;
             }
 
@@ -160,7 +165,7 @@ export default {
             const destinationId_2 = flight_2.OutboundLeg.DestinationId;
             const carrier_2 = flight_2.OutboundLeg.CarrierIds;
             let cost_2 = flight_2.MinPrice;
-            if (carrier_2 == '1865') {
+            if (carrier_2 == "1865") {
               cost_2 = 0;
             }
 
@@ -195,13 +200,13 @@ export default {
               {
                 location: destination_1.CountryName,
                 skyscannerCode: skyscannerCode_1,
-                price: cost_1,
+                price: cost_1
               },
               {
                 location: destination_2.CountryName,
                 skyscannerCode: skyscannerCode_2,
-                price: cost_2,
-              },
+                price: cost_2
+              }
             ];
 
             console.log(destinations);
@@ -209,11 +214,11 @@ export default {
             this.travelItems = destinations;
           }
         })
-        .catch((error) => {
-          console.log('An error occured.', error);
+        .catch(error => {
+          console.log("An error occured.", error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
