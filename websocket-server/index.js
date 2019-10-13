@@ -79,4 +79,9 @@ io.on('connection', (socket) => {
 
     // socket.broadcast.emit() emits to all connections except the triggerer
   });
+
+  socket.on('server_winner_handler', (socketIdOfTrigger) => {
+    io.sockets.emit('client_winner_handler',
+      socketIdOfTrigger);
+  });
 });
