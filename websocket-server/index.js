@@ -24,7 +24,7 @@ const players = {};
 const TEAMS = ['RED', 'BLUE'];
 
 // Max players
-const MAX_PLAYERS = 2;
+const MAX_PLAYERS = 4;
 
 // Country with gem
 const GEM_LOCATION = 'Belgium';
@@ -36,12 +36,14 @@ function teamToUse() {
   return TEAMS[Object.keys(players).length % TEAMS.length];
 }
 
+const teamUsed = teamToUse();
+
 
 io.on('connection', (socket) => {
   // Create the player
   socket.on('client_create_player', (data) => {
     if (Object.keys(players).length < MAX_PLAYERS) { // how we limit the players
-      const player = new Player(data.username, 'Spain', teamToUse());
+      const player = new Player(data.username, 'Spain', teamUsed);
       players[socket.id] = player;
       console.log('this ran');
       console.log(players);
@@ -51,6 +53,7 @@ io.on('connection', (socket) => {
       const initData = {
         gem_location: GEM_LOCATION,
         players,
+        team: teamUsed
       };
       // Some debugging
       console.log();
@@ -58,6 +61,7 @@ io.on('connection', (socket) => {
       console.log(`I am causing the transition ${socket.id}`);
       // io.sockets.emit('client_handle_full_lobby', initData);
       setTimeout(() => {
+          
         io.emit('client_handle_full_lobby', initData);
         console.log('pushed events');
       }, 100);

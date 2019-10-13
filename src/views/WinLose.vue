@@ -1,8 +1,8 @@
 <template>
   <div class="winLose">
-    <div v-if="isWinner">Your Team Won!</div>
+    <div v-if="this.$route.params.isWinner">Your Team Won!</div>
     <div v-else>Your Team Lost!</div>
-    <CharacterIcon state="idle" color="red" />
+    <CharacterIcon state="idle" color="green" />
     <a href="/">New game</a>
   </div>
 </template>
@@ -11,6 +11,9 @@
 import CharacterIcon from '@/components/CharacterIcon.vue';
 
 export default {
+  created(){
+    console.log(this.$route.params.team);
+  },
   name: 'winLose',
   components: {
     CharacterIcon,
